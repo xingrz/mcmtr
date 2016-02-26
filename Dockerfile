@@ -18,8 +18,9 @@ RUN echo "eula=TRUE" > /server/eula.txt
 
 ADD /server.properties /server/server.properties
 ADD /mods /server/mods
+ADD /start-server.sh /start-server.sh
 
-RUN chown minecraft:minecraft -R /data /server
+RUN chown minecraft:minecraft -R /data /server /start-server.sh
 
 USER minecraft
 
@@ -29,4 +30,4 @@ WORKDIR /server
 
 RUN java -jar /forge-1.7.10-10.13.4.1448-1.7.10-installer.jar --installServer
 
-CMD start-server.sh
+CMD /start-server.sh
