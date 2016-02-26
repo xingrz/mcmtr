@@ -2,21 +2,17 @@ FROM java:8
 
 MAINTAINER XiNGRZ
 
-RUN wget -O /forge.jar \
-  "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.4.1448-1.7.10/forge-1.7.10-10.13.4.1448-1.7.10-installer.jar"
+ENV JVM_OPTS -Xmx1024M -Xms1024M
 
-RUN useradd -M -s /bin/false --uid 1000 minecraft \
-  && mkdir /data \
-  && mkdir /server \
-  && chown minecraft:minecraft /data /server
-
-USER minecraft
-WORKDIR /server
 EXPOSE 25565
 
-VOLUME [ "/data" ]
+RUN wget -O /forge-1.7.10-10.13.4.1448-1.7.10-installer.jar \
+  "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.4.1448-1.7.10/forge-1.7.10-10.13.4.1448-1.7.10-installer.jar"
 
-ENV JVM_OPTS -Xmx1024M -Xms1024M
+RUN useradd -M -s /bin/false --uid 1000 minecraft
+
+RUN mkdir /data
+RUN mkdir /server
 
 RUN echo "eula=TRUE" > /server/eula.txt
 
@@ -50,6 +46,14 @@ RUN mkdir /data/logs \
 RUN mkdir /data/world \
   && ln -s /data/world /server/world
 
-RUN java -jar /forge.jar --installServer
+RUN chown minecraft:minecraft -R /data /server
 
-CMD java -jar /forge.jar nogui
+USER minecraft
+
+VOLUME [ "/data" ]
+
+WORKDIR /server
+
+RUN java -jar /forge-1.7.10-10.13.4.1448-1.7.10-installer.jar --installServer
+
+CMD java -jar /server/forge-1.7.10-10.13.4.1448-1.7.10-universal.jar nogui
