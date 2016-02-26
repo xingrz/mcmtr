@@ -2,8 +2,6 @@ FROM java:8
 
 MAINTAINER XiNGRZ
 
-ENV JVM_OPTS -Xmx1024M -Xms1024M
-
 EXPOSE 25565
 
 RUN wget -O /forge-1.7.10-10.13.4.1448-1.7.10-installer.jar \
