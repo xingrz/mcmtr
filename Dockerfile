@@ -16,9 +16,20 @@ RUN mkdir /server
 
 RUN echo "eula=TRUE" > /server/eula.txt
 
+ADD /start-server.sh /start-server.sh
+
 ADD /server.properties /server/server.properties
 ADD /mods /server/mods
-ADD /start-server.sh /start-server.sh
+
+RUN mkdir /server/config
+RUN mkdir /server/crash-reports
+RUN mkdir /server/logs
+RUN mkdir /server/world
+
+RUN echo "[]" > /server/banned-ips.json
+RUN echo "[]" > /server/banned-players.json
+RUN echo "[]" > /server/ops.json
+RUN echo "[]" > /server/whitelist.json
 
 RUN chown minecraft:minecraft -R /data /server /start-server.sh
 
