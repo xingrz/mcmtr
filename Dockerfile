@@ -3,7 +3,7 @@ FROM java:8
 MAINTAINER XiNGRZ
 
 RUN wget -O /forge.jar \
-  "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.4.1448-1.7.10/forge-1.7.10-10.13.4.1448-1.7.10-universal.jar"
+  "http://files.minecraftforge.net/maven/net/minecraftforge/forge/1.7.10-10.13.4.1448-1.7.10/forge-1.7.10-10.13.4.1448-1.7.10-installer.jar"
 
 RUN useradd -M -s /bin/false --uid 1000 minecraft \
   && mkdir /data \
