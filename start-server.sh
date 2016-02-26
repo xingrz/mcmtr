@@ -11,6 +11,7 @@ function create() {
   if [ ! -f "/server/$1" ]; then
     echo "[]" > "/data/$1"
     ln -s "/data/$1" "/server/$1"
+  fi
 }
 
 link "server.properties"
